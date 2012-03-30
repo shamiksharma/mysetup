@@ -36,7 +36,7 @@ Directory Setup
     work/           :  professional work related projects
     proj/           :  personal projects
     proj/macsetup/  :  get macsetup from github
-  </pre></code>
+  </code></pre>
   
 
 Install important  libraries, tools
@@ -48,14 +48,14 @@ Install a bunch of tools
     % brew install git
     % brew install virtualenv
     % brew install jdk 
-</pre></code>
+</code></pre>
  
 - Create a  Virtualenv 
 <pre><code>
     % cd ~/proj
     % virtualenv --no-site-packages --distribute --python=/usr/local/bin/python venv
     % source venv/bin/activate
-</pre></code>
+</code></pre>
 
 - Flash SDK  
    Also install flex_sdk_debug from Adobe.
@@ -108,7 +108,7 @@ Setup bash
      export PATH=$HOME/bin:$PATH
      export PATH=$PATH:/usr/local/git/bin:$HOME/tools/flex_sdk_4/bin
      export PYTHONPATH=$HOME/lib/tornado 
-</pre></code>
+</code></pre>
 
 
 
@@ -117,6 +117,8 @@ Setup Aliases and handy bin/ scripts
 ===============
 
 * SSH Mysql tunnels
+
+<pre><code>
 
   Create the tunnel (localhost:3308  tunnels to  db.server.com:3306)
   % ssh -fNg -L 3308:127.0.0.1:3306 root@stage-db-02.server.com -i ~/.ec2/my_aws
@@ -127,3 +129,5 @@ Setup Aliases and handy bin/ scripts
 
   Kill it
   % lsof -i :3308   # When done, find the process using the port and kill it.
+
+</code></pre>
