@@ -90,6 +90,7 @@ Applications (Paid)
 * Tower for git control
 * Flash Decompiler Trillix
 * Tableau Desktop (on Parallels/Windows) for BI
+* Zooom2 and Sizeup (configured for cntl-option-command  with arrow keys)
 
 Services
 ===============
