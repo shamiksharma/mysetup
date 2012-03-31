@@ -46,17 +46,9 @@ Install a bunch of tools
 <pre><code>
     % brew install wget
     % brew install git
-    % brew install virtualenv
     % brew install jdk 
 </code></pre>
  
-- Create a  Virtualenv 
-<pre><code>
-    % cd ~/proj
-    % virtualenv --no-site-packages --distribute --python=/usr/local/bin/python venv
-    % source venv/bin/activate
-</code></pre>
-
 - Flash SDK  
    Also install flex_sdk_debug from Adobe.
    Note that using DEBUG flash player on Chrome is harder because Chrome has a built-in Flash
@@ -64,6 +56,46 @@ Install a bunch of tools
    debug player if you wish.
 
 - MySQL
+
+Setup python
+============
+
+First install Virtualenv. 
+virtualenv comes with pip, a package installer.
+
+<pre><code>
+    % cd ~/proj
+    % curl -O https://raw.github.com/pypa/virtualenv/master/virtualenv.py
+    % python virtualenv.py venv
+    % source venv/bin/activate
+
+    (venv)% pip install  <whatever-package>
+</code></pre>
+
+  Note that this only installs the packages into the virtualenv.
+  Before doing any python work, activate the virtualenv
+  
+  <pre><code>
+  % source ~/proj/venv/bin/activate
+  (venv)% python mycode.py
+  </code></pre>
+
+  Note: There are 2 popular pkg installers (easy_install and pip)
+  Both install packages from PyPI (python package index).
+  pip is generally better, but some packages may only install with easy_install
+
+- Install important python libraries
+  (venv)% pip install mixpanel-celery
+  (venv)% pip install simplejson
+
+- You can list all installed modules in your python path
+  
+>  (venv)% python
+>  >>> help('modules')     # dumps stdlib as well
+> 
+>  (venv)% pip freeze      # only dumps modules installed by pip 
+>
+  
 
 
 Applications (free)
