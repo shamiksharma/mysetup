@@ -82,13 +82,15 @@ Applications (free)
 Applications (Paid)
 ===============
 * Keynote
-* Parallels + Windows
+* Parallels/VirtualBox + Windows 
 * Fireworks
-* TextMate 
+* SublimeText / TextMate 
 * Adobe Flash Builder
 * Lightroom ($249)
-* Tower
+* Tower for git control
 * Flash Decompiler Trillix
+* Tableau Desktop (on Parallels/Windows) for BI
+* Zooom2 and Sizeup (configured for cntl-option-command  with arrow keys)
 
 Services
 ===============
