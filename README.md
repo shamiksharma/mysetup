@@ -5,6 +5,12 @@ Install a Package Manager
 
   <pre><code>
     % /usr/bin/ruby -e "$(/usr/bin/curl -fsSL https://raw.github.com/mxcl/homebrew/master/Library/Contributions/install_homebrew.rb)"
+    % brew doctor  
+ </code></pre>
+  
+  brew doctor - checks for potential issues on your environment.
+  
+ <pre><code>
     % brew search
     % brew install jdk
     % brew uninstall jdk
