@@ -31,8 +31,7 @@ Directory Setup
     .ssh/           :  put id_rsa  and id_rsa.pub 
     .ec2/           :  see ec2-setup.txt 
     bin/            :  put all scripts here  ( from basesetup/bin )
-    sdk/            :  jdk, flex_sdk, ruby, python, 
-    tools/          :  tornado
+    sdk/            :  jdk, flex_sdk, ruby, python, eclipse, tornado, twistd etc.
     work/           :  professional work related projects
     proj/           :  personal projects
     proj/macsetup/  :  get macsetup from github
