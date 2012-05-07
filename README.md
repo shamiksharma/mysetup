@@ -4,7 +4,7 @@ Install a Package Manager
 - First install brew 
 
   <pre><code>
-    % ruby -e "$(curl -fsS http://gist.github.com/raw/323731/install_homebrew.rb)"
+    % /usr/bin/ruby -e "$(/usr/bin/curl -fsSL https://raw.github.com/mxcl/homebrew/master/Library/Contributions/install_homebrew.rb)"
     % brew search
     % brew install jdk
     % brew uninstall jdk
