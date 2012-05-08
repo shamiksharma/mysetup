@@ -170,3 +170,13 @@ Setup Aliases and handy bin/ scripts
   % lsof -i :3308   # When done, find the process using the port and kill it.
 
 </code></pre>
+
+
+DotFiles
+=================
+
+
+A good idea is to put all dotfiles in ~/dotfiles and symlink to them
+as in https://github.com/holman/dotfiles
+
+
