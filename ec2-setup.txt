@@ -75,3 +75,120 @@ Terminate Instances
 My AMI List
 -
 ami-0ea95467   bitnami django 32-bit us-east ubuntu ebs-backed
+
+
+
+Setup Server Software
+-
+
+My typical Ec2 instance setup does the follwing
+- Runs a Django that is used for production
+- Runs a MySQL this is used for production db and a dev db
+- Runs a Stunnel that tunnels dev http/https to my workstation
+- On the workstation there is a stunnel that tunnels back to the devdb on this server
+- Thus, dev traffic goes thus
+  - https://apps.pinmodo.com:8443  -> myaws:8443 -> macbook:8080 --> mysql @myaws
+  - https://apps.pinmodo.com:8080  -> myaws:8080 -> macbook:8080 --> mysql @myaws
+
+
+* Runs a dropbox client
+  % cd ~ && wget -O - "https://www.dropbox.com/download?plat=lnx.x86" | tar xzf -
+* Created a .ssh directory
+  % mkdir ~/.ssh
+* Appended my public key into the authorized_keys
+  % cat id_rsa.pub >> authorized_keys
+* Installed stunnel
+  % sudo apt-get install stunnel4
+* Created a self-signed cert for stunnel
+  % cd .ssh
+  % openssl req -new -x509 -days 3650 -nodes -out stunnel_cert.pem -keyout stunnel_cert.pem
+  % chmod 600 stunnel_cert.pem
+* Test stunnel by running in the foreground (-f). The -P option specifies the file to put the PID in.
+  % stunnel -p stunnel_cert.pem -d 80 -r localhost:8000 -f -P ~/stunnel.pid
+* Linked to the Bitnami scripts to start/stop services
+  % cd ; ln -s /opt/bitnami bitnami
+  % sudo bitnami/ctlscript.sh status            # shows apache, mysql, postgresql running
+  % sudo bitnami/ctlscript.sh stop postgresql   # shows apache, mysql, postgresql running
+* Added a bin/ directory and added PATH to it
+  % mkdir ~/bin
+  % ln -s ~/bitnami/ctlscript.sh ~/bin/bitnami ; chmod 700 ~/bin/bitnami
+* Fix the PATH
+  % cat >> ~/.bashrc
+    PATH=$PATH:~/bin:~/bitnami/mysql/bin:~/bitnami/apache2/bin:~/bitnami/sqlite/bin:~/bitnami/apps/django/bin:.
+* Change mysql root password (from root/bitnami)
+  % mysqladmin -u root -p'bitnami' password 'NEWPASSWORD'
+
+
+
+Bitnami Django Stack
+
+The bitami DjangoStack is described [here](http://bitnami.org/files/stacks/djangostack/1.4-1/djangostack.pdf)
+and [here](http://wiki.bitnami.org/Native_Installers_Quick_Start_Guide#How_can_I_start_or_stop_the_servers.3f)
+All the code is in /opt/bitnami
+It includes
+* Django
+* APache
+* MySQL, Postrgres and SQLite
+* Python (and bindings for all 3 db)
+* mod_wsgi  (to connect apache to python frameworks)
+* Client Libraries (http, xml, webdab, zlib)
+
+
+The main command to know about is /opt/bitnami/ctlscript.sh
+% cd
+% ln -s /opt/bitnami bitnami
+% sudo bitnami/ctlscript.sh status   # shows which services runniung
+% sudo bitnami/ctlscript.sh [start|stop|restart|status]  [apache|mysql|postgressql]
+
+Bitnami also provides scripts for
+* Upgrading the stack
+* Backing up the DjangoStack (make a copy of /opt/bitnami)
+* Backing up the db
+* Managing django
+
+MySQL Admin
+
+The Bitnami DjangoStack does NOT include phpMyAdmin (or PhphPgAdmin for postgres).
+They need to be installed, and after installing, they are
+onyl acessible from localhost, but you can make it remotely acessible
+by following the instructiones [here]
+(http://wiki.bitnami.org/Components/phpMyAdmin_and_phpPgAdmin)
+
+You can connect o mysql from local shell
+% mysql -u root -p  (passwo
+
+I find it more convenient to start a tunnel to MySQL from my local workstation
+and use a desktop tool like MySQLWorkBench (or SQLYog)
+
+% yes | ssh -f -L 3306:localhost:3306  admin@pinmodo.com sleep 10000
+# If you remove the -f, this will run in the background
+
+User add and delete
+% sudo useradd -m -g admin devuser   # -m creates a homne dir, -g gives them admin.sudo rights
+% sudo passwd devuser
+
+% userdel -r devuser  # to delete teh user
+
+
+# Load RVM into a shell session *as a function*
+if [[ -s "$HOME/.rvm/scripts/rvm" ]] ; then
+
+  # First try to load from a user install
+  source "$HOME/.rvm/scripts/rvm"
+
+elif [[ -s "/usr/local/rvm/scripts/rvm" ]] ; then
+
+  # Then try to load from a root install
+  source "/usr/local/rvm/scripts/rvm"
+
+else
+
+  printf "ERROR: An RVM installation was not found.\n"
+
+fi
+
+sudo aptitude install build-essential libssl-dev libreadline5 libreadline5-dev zlib1g zlib1g-dev
+
+these are needed before installioing ruby on a linux box
+
+
