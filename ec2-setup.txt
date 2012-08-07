@@ -161,7 +161,16 @@ I find it more convenient to start a tunnel to MySQL from my local workstation
 and use a desktop tool like MySQLWorkBench (or SQLYog)
 
 % yes | ssh -f -L 3306:localhost:3306  admin@pinmodo.com sleep 10000
-# If you remove the -f, this will run in the background
+#
+# This means create a ssh tunnel from here to admin@pinmodo
+# Send traffic coming into 3306 through the tunnel
+# At the other end, traffic coming out should be forwarded to (localhost:3306) at the server.
+# Here the localhost refers to the pinmodo-server.
+# Due to the -f, this will run in the foreground
+# 
+# ssh -L   in-port:fwd-host:fwd-port    admin@pinmodo.com
+#
+#   (in-port) --->   sshtunnel-to admin@pinmodod.com   ---->   (fwd-host:fwd-port)
 
 User add and delete
 % sudo useradd -m -g admin devuser   # -m creates a homne dir, -g gives them admin.sudo rights
